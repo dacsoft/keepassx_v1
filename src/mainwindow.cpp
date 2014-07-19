@@ -27,6 +27,7 @@
 #include "import/Import_KeePassX_Xml.h"
 #include "export/Export_Txt.h"
 #include "export/Export_KeePassX_Xml.h"
+#include "export/Export_KeePassX_Xml_Uuid.h"
 
 #include "dialogs/AboutDlg.h"
 #include "dialogs/SearchDlg.h"
@@ -48,6 +49,7 @@ Import_PwManager import_PwManager;
 Import_KWalletXml import_KWalletXml;
 Export_Txt export_Txt;
 Export_KeePassX_Xml export_KeePassX_Xml;
+Export_KeePassX_XmlUuid export_KeePassX_XmlUuid;
 
 KeepassMainWindow::KeepassMainWindow(const QString& ArgFile,bool ArgMin,bool ArgLock,QWidget *parent, Qt::WFlags flags) :QMainWindow(parent,flags){
 	ShutingDown=false;
@@ -356,6 +358,7 @@ void KeepassMainWindow::setupMenus(){
 	_add_import(import_KWalletXml)
 	_add_export(export_Txt);
 	_add_export(export_KeePassX_Xml);
+	_add_export(export_KeePassX_XmlUuid);
 
 	FileNewAction->setShortcut(tr("Ctrl+N"));
 	FileOpenAction->setShortcut(tr("Ctrl+O"));

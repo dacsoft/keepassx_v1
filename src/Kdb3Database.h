@@ -167,6 +167,7 @@ public:
 	virtual QList<IEntryHandle*> entries();
 	virtual QList<IEntryHandle*> entries(IGroupHandle* Group);
 	virtual QList<IEntryHandle*> entriesSortedStd(IGroupHandle* Group);
+	virtual QList<IEntryHandle*> entriesSortedUuid();
 	virtual QList<IEntryHandle*> expiredEntries();
 
 	virtual IEntryHandle* cloneEntry(const IEntryHandle* entry);
@@ -220,6 +221,7 @@ private:
 	//void copyTree(Kdb3Database* db, GroupHandle* orgGroup, IGroupHandle* parent);
 	static bool EntryHandleLessThan(const IEntryHandle* This,const IEntryHandle* Other);
 	static bool EntryHandleLessThanStd(const IEntryHandle* This,const IEntryHandle* Other);
+	static bool EntryHandleLessThanUuid(const IEntryHandle* This,const IEntryHandle* Other);
 	static bool StdEntryLessThan(const Kdb3Database::StdEntry& This,const Kdb3Database::StdEntry& Other);
 
 	StdEntry* getEntry(const KpxUuid& uuid);

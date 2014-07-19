@@ -74,6 +74,7 @@ void Export_KeePassX_Xml::addEntry(IEntryHandle* entry,QDomElement& parent,QDomD
 	QDomElement LastAccess=doc.createElement("lastaccess");	
 	QDomElement LastMod=doc.createElement("lastmod");
 	QDomElement Expire=doc.createElement("expire");	
+	QDomElement UUID=doc.createElement("uuid");
 	
 	Title.appendChild(doc.createTextNode(entry->title()));
 	Username.appendChild(doc.createTextNode(entry->username()));
@@ -98,6 +99,8 @@ void Export_KeePassX_Xml::addEntry(IEntryHandle* entry,QDomElement& parent,QDomD
 	LastAccess.appendChild(doc.createTextNode(entry->lastAccess().toString(Qt::ISODate)));
 	LastMod.appendChild(doc.createTextNode(entry->lastMod().toString(Qt::ISODate)));
 	Expire.appendChild(doc.createTextNode(entry->expire().toString(Qt::ISODate)));
+	UUID.appendChild(doc.createTextNode(entry->uuid().toString()));
+
 	GroupElement.appendChild(Title);
 	GroupElement.appendChild(Username);
 	GroupElement.appendChild(Password);
@@ -112,4 +115,5 @@ void Export_KeePassX_Xml::addEntry(IEntryHandle* entry,QDomElement& parent,QDomD
 	GroupElement.appendChild(LastAccess);
 	GroupElement.appendChild(LastMod);
 	GroupElement.appendChild(Expire);
+	GroupElement.appendChild(UUID);
 }

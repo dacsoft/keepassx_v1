@@ -17,24 +17,26 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
-#ifndef _EXPORT_KPX_XML_H_
-#define _EXPORT_KPX_XML_H_
-#include <QObject>
-#include "Export.h"
 
-class Export_KeePassX_Xml:public ExporterBase, public IExport{
-	Q_OBJECT
-	
-	public:
-		virtual bool exportDatabase(QWidget* GuiParent, IDatabase* Database);	
-		virtual QString identifier(){return "EXPORT_KEEPASSX_XML";}
-		virtual QString title(){return tr("KeePassX XML File");}
-	protected:
-		void addGroup(IGroupHandle* group,QDomElement& parent,QDomDocument& doc);
-		void addEntry(IEntryHandle* group,QDomElement& parent,QDomDocument& doc);
-		IDatabase* db;
-};
+#include "Export_KeePassX_Xml_Uuid.h"
 
-#endif
- 
+bool Export_KeePassX_XmlUuid::exportDatabase(QWidget* GuiParent,IDatabase* database) {
+	db=database;
+	// determine output file
+	QFile *file=openFile(GuiParent,identifier(),QStringList()<<tr("XML Files (*.xml)") << tr("All Files (*)"));
+	if(!file) {
+		return false;
+	}
+	QDomDocument doc("KEEPASSX_DATABASE_BYUUID");
+	QDomElement root=doc.createElement("database");
+	doc.appendChild(root);
+	QList<IEntryHandle*> entries = database->entriesSortedUuid();
+	for(int i=0;i<entries.size();i++){
+		addEntry(entries[i],root,doc);
+		}
+
+	file->write(doc.toByteArray());
+	file->close();
+	delete file;
+	return true;
+}

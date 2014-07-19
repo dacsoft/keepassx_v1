@@ -18,22 +18,19 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
  
-#ifndef _EXPORT_KPX_XML_H_
-#define _EXPORT_KPX_XML_H_
-#include <QObject>
-#include "Export.h"
+#ifndef _EXPORT_KPX_XMLUUID_H_
+#define _EXPORT_KPX_XMLUUID_H_
 
-class Export_KeePassX_Xml:public ExporterBase, public IExport{
+#include <QObject>
+#include "Export_KeePassX_Xml.h"
+
+class Export_KeePassX_XmlUuid : public Export_KeePassX_Xml {
 	Q_OBJECT
 	
 	public:
 		virtual bool exportDatabase(QWidget* GuiParent, IDatabase* Database);	
-		virtual QString identifier(){return "EXPORT_KEEPASSX_XML";}
-		virtual QString title(){return tr("KeePassX XML File");}
-	protected:
-		void addGroup(IGroupHandle* group,QDomElement& parent,QDomDocument& doc);
-		void addEntry(IEntryHandle* group,QDomElement& parent,QDomDocument& doc);
-		IDatabase* db;
+		virtual QString identifier(){return "EXPORT_KEEPASSX_XMLUUID";}
+		virtual QString title(){return tr("KeePassX XML File by UUID");}
 };
 
 #endif

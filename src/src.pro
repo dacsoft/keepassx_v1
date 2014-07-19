@@ -254,6 +254,7 @@ HEADERS += main.h \
            import/Import_PwManager.h \
            export/Export.h \
            export/Export_KeePassX_Xml.h \
+           export/Export_KeePassX_Xml_Uuid.h \
            export/Export_Txt.h \
            plugins/interfaces/IFileDialog.h \
            plugins/interfaces/IIconTheme.h \
@@ -313,6 +314,7 @@ SOURCES += main.cpp \
            import/Import_PwManager.cpp \
            export/Export.cpp \
            export/Export_KeePassX_Xml.cpp \
+           export/Export_KeePassX_XmlUuid.cpp \
            export/Export_Txt.cpp
 
 isEqual(PRECOMPILED,0) {

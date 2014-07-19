@@ -47,6 +47,18 @@ bool Kdb3Database::EntryHandleLessThanStd(const IEntryHandle* This,const IEntryH
 	return true;
 }
 
+bool Kdb3Database::EntryHandleLessThanUuid(const IEntryHandle* This,const IEntryHandle* Other){
+	int comp = (QString::compare(This->uuid().toString(), Other->uuid().toString()));
+	if (comp < 0) return true;
+	else if (comp > 0) return false;
+	// handle same uuid case - subsort on username
+	comp = This->username().compare(Other->username());
+	if (comp < 0) return true;
+	else if (comp > 0) return false;
+
+	return true;
+}
+
 bool Kdb3Database::StdEntryLessThan(const Kdb3Database::StdEntry& This,const Kdb3Database::StdEntry& Other){
 	return This.Index<Other.Index;
 }
@@ -976,6 +988,7 @@ bool Kdb3Database::setFileKey(const QString& filename){
 			RawMasterKey.lock();
 			return true;
 		}
+		file.seek(0);
 	}
 	SHA256 sha;
 	unsigned char* buffer[2048];
@@ -1044,6 +1057,19 @@ QList<IEntryHandle*> Kdb3Database::entriesSortedStd(IGroupHandle* Group){
 			handles.append(&EntryHandles[i]);
 	}
 	qSort(handles.begin(),handles.end(),EntryHandleLessThanStd);
+
+	return handles;
+}
+
+QList<IEntryHandle*> Kdb3Database::entriesSortedUuid(){
+
+	QList<IEntryHandle*> handles;
+	for(int i=0; i<EntryHandles.size(); i++){
+		if(EntryHandles[i].isValid()) {
+			handles.append(&EntryHandles[i]);
+		}
+	}
+	qSort(handles.begin(),handles.end(),EntryHandleLessThanUuid);
 
 	return handles;
 }

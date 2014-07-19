@@ -275,6 +275,8 @@ public:
 
 	//! \return a list with the pointers to the handles of all entries of the database. The list contains only valid handles. The list is not sorted.
 	virtual QList<IEntryHandle*> entries()=0;
+	//! \return a list with the pointers to the handles of all entries of the database. The list contains only valid handles. The list is sorted by uuid.
+	virtual QList<IEntryHandle*> entriesSortedUuid()=0;
 
 	//! \param Group The group which contains the wanted entries.
 	//! \return a list of pointers to the handles of all entries which belong to the given group. The list contains only valid handles and is sorted in an ascending order regarding to the entry indices.
